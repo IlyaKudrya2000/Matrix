@@ -23,7 +23,6 @@ void s21_remove_matrix(matrix_t *A) {
 }
 
 int s21_create_matrix(int rows, int columns, matrix_t *result) {
-  // printf("%d\n", result->rows);
   int rez = 0;
   if (result == NULL || rows <= 0 || columns <= 0) {
     rez = 1;
@@ -31,9 +30,6 @@ int s21_create_matrix(int rows, int columns, matrix_t *result) {
   } else {
     result->rows = rows;
     result->columns = columns;
-    // if(rows <= 0 || columns <= 0){
-    // rez = 1;
-    // } else {
     result->matrix = malloc(sizeof(double *) * result->rows);
     for (int i = 0; i < result->rows; i++) {
       result->matrix[i] = malloc(sizeof(double) * result->columns);
@@ -43,7 +39,6 @@ int s21_create_matrix(int rows, int columns, matrix_t *result) {
         result->matrix[i][j] = 0;
       }
     }
-    // }
   }
   return rez;
 }
@@ -155,9 +150,6 @@ int s21_determinant(matrix_t *A, double *result) {
   *result = 0;
   if (A != NULL && result != NULL && A->columns > 0) {
     if (A->columns == A->rows) {
-      // if (A->columns == 2) {
-      //     *result = A->matrix[0][0] * A->matrix[1][1] - A->matrix[0][1] *
-      //     A->matrix[1][0];
       if (A->columns == 1 || A->rows == 1) {
         *result = A->matrix[0][0];
       } else {
@@ -168,8 +160,6 @@ int s21_determinant(matrix_t *A, double *result) {
           s21_create_matrix(A->rows - 1, A->columns - 1, &ppp);
           s21_mimor(A, &ppp, i, j);
           s21_determinant(&ppp, &pp);
-          // printf("%.0f\n", pp);
-
           s21_remove_matrix(&ppp);
           *result = *result + pow(-1, i + j) * A->matrix[i][j] * pp;
         }
